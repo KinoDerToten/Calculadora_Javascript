@@ -13,8 +13,17 @@ onload = () => {
 }
 
 // Variaveis para armazenar o valor do operador e o estado da calculadora
-let sValor = '';
+let sValor = '0';
+let ehNovoNumero = true;
+
+const atualizaVisor = () => {
+    document.querySelector('#display').innerText = sValor;
+}
 
 const digito = (n) => {
-    console.log(n);
+    if (ehNovoNumero) {
+        sValor = '' + n;
+        ehNovoNumero = false;
+    } else sValor += n;
+    atualizaVisor();
 }
