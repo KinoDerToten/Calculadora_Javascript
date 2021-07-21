@@ -11,6 +11,10 @@ onload = () => {
     document.querySelector('#bt-8').onclick = () => digito(9);
     document.querySelector('#bt-comma').onclick = virgula;
     document.querySelector('#bt-ac').onclick = limpa;
+    document.querySelector('#bt-divide').onclick = () => digito('/');
+    document.querySelector('#bt-times').onclick = () => digito('*');
+    document.querySelector('#bt-minus').onclick = () => digito('-');
+    document.querySelector('#bt-plus').onclick = () => digito('+');
 }
 
 // Variaveis para armazenar o valor do operador e o estado da calculadora
@@ -18,8 +22,20 @@ let sValor = '0';
 let ehNovoNumero = true;
 let ehNumeroFalse = false;
 
+// Atualizaçao do visor
 const atualizaVisor = () => {
-    document.querySelector('#display').innerText = sValor;
+    let [parteInteira, parteDecimal] = sValor.split(',');
+    let v = '';
+    c = 0;
+    for(let i = parteInteira.length - 1; i >= 0; i--){
+        if (++c > 3) {
+            v = '.' + v;
+            c = 1
+        }
+        v = parteInteira[i] + v;
+    }
+    v = v + (parteDecimal ? ',' + parteDecimal : '')
+    document.querySelector('#display').innerText = v;
 }
 
 // Tratamento do clique no botao de digito
