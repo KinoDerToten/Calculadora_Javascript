@@ -18,9 +18,11 @@ onload = () => {
 }
 
 // Variaveis para armazenar o valor do operador e o estado da calculadora
-let sValor = '0';
-let ehNovoNumero = true;
-let ehNumeroFalse = false;
+let sValor = '0'; // valor que será apresentado no display
+let ehNovoNumero = true; // Indica se o proximo digito sera de um novo numero
+let valorAnterior = 0; // valor acumulado para uma operacao
+let operacaoPendente = null; // operacao acumulada
+
 
 // Atualizaçao do visor
 const atualizaVisor = () => {
@@ -63,3 +65,14 @@ const limpa = () => {
     sValor = '0';
     atualizaVisor();
 }
+
+// Converte a string do valor para um numero real
+const valorAtual = () => parseFloat(sValor.replace(',', '.');
+
+// Tratamento do clique nos botoes de operadores
+const operador = (op) => {
+    calcula();
+    valorAnterior = valorAtual;
+    operacaoPendente = op;
+    ehNovoNumero = true;
+};
