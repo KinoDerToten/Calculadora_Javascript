@@ -15,6 +15,7 @@ onload = () => {
     document.querySelector('#bt-times').onclick = () => digito('*');
     document.querySelector('#bt-minus').onclick = () => digito('-');
     document.querySelector('#bt-plus').onclick = () => digito('+');
+    document.querySelector('#bt-equals').onclick = calcula;
 }
 
 // Variaveis para armazenar o valor do operador e o estado da calculadora
@@ -52,9 +53,9 @@ const digito = (n) => {
 // Tratamento do clique no botão de ponto decimal
 const virgula = () =>  {
     if (ehNovoNumero) {
-        sValor = '0,'
+        sValor = '0,';
     } else if (sValor.indexOf(',') == -1){
-        sValor += ','
+        sValor += ',';
         }
     atualizaVisor();
 }
@@ -62,17 +63,44 @@ const virgula = () =>  {
 // Tratamento do clique do botao AC (All Clear)
 const limpa = () => {
     ehNovoNumero = true;
+    valorAnterior = 0;
     sValor = '0';
+    operacaoPendente = null;
     atualizaVisor();
 }
 
 // Converte a string do valor para um numero real
-const valorAtual = () => parseFloat(sValor.replace(',', '.');
+const valorAtual = () => parseFloat(sValor.replace(',', '.'));
 
 // Tratamento do clique nos botoes de operadores
 const operador = (op) => {
     calcula();
-    valorAnterior = valorAtual;
+    valorAnterior = valorAtual();
     operacaoPendente = op;
     ehNovoNumero = true;
 };
+
+const calcula = () => {
+    if (operacaoPendente != null) {
+    let resultado;
+    switch (operacaoPendente) {
+        case '+': 
+            resultado = valorAnterior + valorAtual(); 
+            break;
+        case '-': 
+            resultado = valorAnterior - valorAtual(); 
+            break;
+        case '*': 
+            resultado = valorAnterior * valorAtual(); 
+            break;
+        case '/': 
+            resultado = valorAnterior / valorAtual(); 
+            break;
+    }
+      sValor = resultado.toString().replace('.', ',');
+    }
+    ehNovoNumero = true;
+    operacaoPendente = null;
+    valorAnterior = 0;
+    atualizaVisor();
+}
