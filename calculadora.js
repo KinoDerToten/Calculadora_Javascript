@@ -11,10 +11,10 @@ onload = () => {
     document.querySelector('#bt-8').onclick = () => digito(9);
     document.querySelector('#bt-comma').onclick = virgula;
     document.querySelector('#bt-ac').onclick = limpa;
-    document.querySelector('#bt-divide').onclick = () => digito('/');
-    document.querySelector('#bt-times').onclick = () => digito('*');
-    document.querySelector('#bt-minus').onclick = () => digito('-');
-    document.querySelector('#bt-plus').onclick = () => digito('+');
+    document.querySelector('#bt-divide').onclick = () => operador('/');
+    document.querySelector('#bt-times').onclick = () => operador('*');
+    document.querySelector('#bt-minus').onclick = () => operador('-');
+    document.querySelector('#bt-plus').onclick = () => operador('+');
     document.querySelector('#bt-equals').onclick = calcula;
 }
 
@@ -33,13 +33,13 @@ const atualizaVisor = () => {
     for(let i = parteInteira.length - 1; i >= 0; i--){
         if (++c > 3) {
             v = '.' + v;
-            c = 1
+            c = 1;
         }
         v = parteInteira[i] + v;
     }
-    v = v + (parteDecimal ? ',' + parteDecimal : '')
+    v = v + (parteDecimal ? ',' + parteDecimal : '');
     document.querySelector('#display').innerText = v;
-}
+};
 
 // Tratamento do clique no botao de digito
 const digito = (n) => {
@@ -54,6 +54,7 @@ const digito = (n) => {
 const virgula = () =>  {
     if (ehNovoNumero) {
         sValor = '0,';
+        enNovoNumero = false;
     } else if (sValor.indexOf(',') == -1){
         sValor += ',';
         }
